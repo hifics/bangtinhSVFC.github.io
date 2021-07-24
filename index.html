@@ -1,0 +1,683 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Shinhan Finance" />
+<meta name="author" content="Shinhan Finance" />
+
+<title>Shinhan Finance : PL-CALCULATOR</title>
+<script src="js/prototype.js" type="text/javascript"></script>
+<script src="js/effect.js" type="text/javascript"></script>
+<script src="js/validation.js" type="text/javascript"></script>
+<script src="js/submit.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/numberFormat154.js"></script>
+<SCRIPT type="text/javascript" src="js/dhtmlgoodies_calendar.js"></script>
+<link type="text/css" rel="stylesheet" href="css/dhtmlgoodies_calendar.css" media="screen"></LINK>
+<style type="text/css">
+@import "css/styles.css";
+@import "menu/menu.css";
+</style>
+
+<style type="text/css">
+h1.clearbox {
+  margin: 5px 0 -30px 20px;
+  padding-top: 0;
+  font-size: 1.7em;
+  color: white;
+  text-align: left;
+  position: relative;
+  top: -50px;
+    }
+
+#clientlogo {
+/*	  background: url(images/redgrad.jpg) repeat-x; */
+  background-color:#0066B3;	
+  width: 100%;
+  height: 50px;
+  overflow: hidden;
+  margin: 0 0 10px 0;
+  border-bottom: 2px solid;
+}
+
+    body {
+      background: white url(images/greygrad.jpg) repeat-x;
+      background-position: 0 43px;
+      color: black;
+    }
+
+    div.page {
+      background: none;
+    }
+
+    div#wrapper {
+      width: 100%;
+      margin: 0 auto 5px auto;
+    }
+
+    div.question, #surveycontrol {
+      background: none;
+      color: black;
+    }
+
+    div#consolebar {
+      color: black;
+    }
+
+    div#footer {
+      margin-top: 15px;
+    } 
+
+    #main {
+      /*font-size: 1.5em;*/
+      margin-left: 20px;
+    }
+
+    div#footer a:link, div#footer a:visited {
+      color: black;
+    } 
+
+   .grid td.optionlabel {
+      background: white;
+      text-align: left;
+    } 
+    div#surveycontrol {
+      color: black;
+      margin-left: 10px;
+    }       
+    div#buttons {
+       margin: 10px;
+       position: absolute;
+       left: 40%;
+    }
+    div#progress {
+      float: left;
+      margin: 10px;
+    }
+    p#progressindicator {
+      width: 200px;
+      background: white;
+      border: 1px solid crimson;
+      text-align: left;
+      margin: 0;
+      overflow: hidden;
+      height: 1.2em;
+      font-size: 0.8em;
+      color: crimson;
+    }
+    span#progressbar {
+      color: white;
+      background: crimson;
+      float: left;
+      text-align: right;
+      height: 1.2em;
+    }
+    .continuationscreen {
+      display: block; 
+      padding-right: 5px;
+   }
+   .firstscreen {
+      color: crimson !important;
+      background: white !important;
+      padding: 0 15px 0 5px;
+      overflow: hidden;
+  }
+
+
+   .title{
+        font-weight:bold;
+        color:#666666;
+        margin:5px 0 5px 5px;
+        padding:5px 0 5px 5px;
+   }
+   
+   .content {
+        margin:10px 10px 10px 10px;
+        padding:10px 10px 10px 10px;
+   }
+   
+      .content .subtitle{
+           font-weight:bold;
+        color:#000000;
+        padding:5px;
+   }
+   .content .odd{
+        background-color:#E0E0E0;
+   }
+
+   .content .rpt{
+        background-color:#F8F8F8;
+   }
+
+
+   .content .alert{
+        background-color:#FFD2D2;
+   }
+
+   .content .closed{
+        background-color:#CCFFCC;
+        color:#0000FF;
+   }
+   
+   .tb_header{
+  /* 	background-image:url(images/redgrad.jpg) */
+        background-color: #CCCCCC;
+   }
+
+   .tb_header_report{
+        background-color:#666666;
+        color:#0000FF;
+        
+   }
+   
+   .content img{
+       border:0;
+    margin-right:5px;
+    padding-right:5px;
+   }
+</style>
+
+<!--[if IE]>
+<style type="text/css">
+    p.bigboxoption {
+      margin: 0 -10px 0 -5px;
+    }
+</style>
+<![endif]-->
+
+<script type="text/javascript" src="js/calculator_05062015.js"></script>
+
+<script>
+function checkPS(tax_code){
+    var URL ="index.php?popup=yes&nav1=check_preselected&tax_code="+tax_code;
+    PopupCenter(URL,'PS','800','400');
+}
+
+function checkCELP(tax_code){
+    var URL ="index.php?popup=yes&nav1=CHECK_CELP&tax_code="+tax_code;
+    PopupCenter(URL,'PS','800','400');
+}
+
+function check(){
+    var keyword = document.form1.keyword.value;
+    var field = document.form1.field.value;		
+    if(trim(keyword) =="" ){
+        alert("Vui long nhap vao keyword muon tim.");
+        return false;
+    }
+    if(trim(field) =="" ){
+        alert("Vui long cho biet ban muon tim theo NAME hay theo TAX CODE.");
+        return false;
+    }
+    
+    return true;
+}
+
+function trim(str){
+    return str.replace(/^[\s]+/,'').replace(/[\s]+$/,'').replace(/[\s]{2,}/,' ');
+}
+</script>
+</head>
+<body>
+
+<div id="clientlogo">
+<span class="logo"><img src="images/pvfc.png" valign="middle"> </span>
+</div>
+<div id="wrapper">
+<h1 class="clearbox">PL-CALCULATOR</h1>
+<div id="multi-level">
+<ul class="menu">
+
+<li class="top"><a href="index.php?nav1=calculator" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top">Calculator</span></a></li>	
+
+<!--
+<li class="top"><a href="#" id="products" class="top_link"><b class="b_top"></b><span class="span_top drop">List</span><!--[if IE 7]><!--></a><!--<![endif]-->
+    <!--[if lte IE 6]><table><tr><td><![endif]-->
+<!--
+    <ul class="sub">			
+        <li><a href="index.php?nav1=listmanagement"><b class="cog"></b><span>List</span></a></li>									
+                                
+                                    
+    </ul>
+    
+    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+<!--
+</li>	
+-->
+
+<!--
+<li class="top"><a href="#" id="products" class="top_link"><b class="b_top"></b><span class="span_top drop">Comp-Type Deviation</span><!--[if IE 7]><!--></a><!--<![endif]-->
+    <!--[if lte IE 6]><table><tr><td><![endif]-->
+<!--
+    <ul class="sub">			
+        <li><a href="index.php?nav1=deviation&nav2=upload"><b class="cog"></b><span>Upload New Com.</span></a></li>			
+        <li><a href="index.php?nav1=deviation"><b class="cog"></b><span>All</span></a></li>									
+        <li><a href="index.php?nav1=deviation&status=Approved"><b class="cog"></b><span>Approved</span></a></li>			
+        <li><a href="index.php?nav1=deviation&status=Rejected"><b class="cog"></b><span>Rejected</span></a></li>									
+    </ul>
+    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+<!--
+</li>
+-->
+
+<!--
+<li class="top"><a href="index.php?nav1=non_tax" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top">Non-Tax Comp</span></a></li>	
+-->
+
+<!--
+<li class="top"><a href="#" id="products" class="top_link"><b class="b_top"></b><span class="span_top drop">Corpwow List</span><!--[if IE 7]><!--></a><!--<![endif]-->
+    <!--[if lte IE 6]><table><tr><td><![endif]-->
+<!--
+    <ul class="sub">			
+        <li><a href="index.php?nav1=corpwow&nav2=list"><b class="cog"></b><span>MOU Sign Off: ALL</span></a></li>									
+        <li><a href="index.php?nav1=corpwow&nav2=list&status=yes"><b class="cog"></b><span>MOU Sign Off: YES</span></a></li>			
+        <li><a href="index.php?nav1=corpwow&nav2=list&status=no"><b class="cog"></b><span>MOU Sign Off: NO</span></a></li>			
+                                
+    </ul>
+    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+<!--
+</li>
+-->
+
+<!--
+<li class="top"><a href="index.php?nav1=phone&nav2=list_prefix" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top">Phone Type Defination</span></a></li>	
+<li class="top"><a href="index.php?nav1=PS-CELP" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top">PS-CELP Exclusive</span></a></li>	
+
+<li class="top"><a href="index.php?nav1=ccsp-bank" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top">CCSP-BANK LIST</span></a></li>	
+
+<li class="top"><a href="#" id="products" class="top_link"><b class="b_top"></b><span class="span_top drop">Comp Monitoring</span></a>
+    <!--[if lte IE 6]><table><tr><td><![endif]-->
+<!--
+    <ul class="sub">			
+        <li><a href="index.php?nav1=cmtg"><b class="cog"></b><span>List</span></a></li>									
+                                
+    </ul>
+    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+<!--
+</li>
+-->
+
+<!--
+<li class="top"><a href="#" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top drop">Docs</span></a>
+    <!--[if lte IE 6]><table><tr><td><![endif]-->
+<!--
+    <ul class="sub">
+        <li><a href="QUIDINHKYLUAT.htm" target="_blank"><b class="cog"></b><span>Qui định kỷ luật</span></a></li>
+        <li><a href="LMGTActionCodesforSWATTeamMIS.htm" target="_blank"><b class="cog"></b><span>LMGT Action Codes</span></a></li>			
+        <li><a href="PL-TelesalesEN.htm" target="_blank"><b class="cog"></b><span>PL Script - EN</span></a></li>									
+        <li><a href="PL-TelesalesVN.htm" target="_blank"><b class="cog"></b><span>PL Script - VN</span></a></li>												
+    </ul>
+    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+<!--		
+</li>
+<li class="top"><a href="index.php?nav1=search-comp" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top">Search Company 
+</span></a></li>
+<li class="top"><a href="#" id="products" class="top_link"><b class="b_top"></b><span class="span_top drop">Location</span></a>
+    <!--[if lte IE 6]><table><tr><td><![endif]-->
+<!--		
+    <ul class="sub">			
+                                            
+        <li><a href="index.php?nav1=search-location&nav2=search"><b class="cog"></b><span>Search</span></a></li>
+    </ul>
+    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+<!--
+</li>
+--> 
+
+<!--	
+<li class="top"><a href="index.php?nav1=login" id="privacy" class="top_link"><b class="b_top"></b><span class="span_top">Administration</span></a></li>	
+-->
+</ul>
+</div>
+
+
+<div id="main">
+<table width="100%">
+<!--
+ <tr>
+    <td class="content" valign="top">
+   <div align="left"> 
+      <form id="search" name="search" method="post" action="index.php?popup=yes" target="_blank">		  
+         <input type="hidden" name="nav1" value="check_tax_code" />
+       <label>Tax code : </label><input type="text" name="tax_code" />
+        <input type="submit" name="Submit" value="Check blacklist/blocklist" /> or
+          <input type="button" name="Submit" value="Check Preselected" onclick="checkPS(tax_code.value);"/>
+       <input type="button" name="Submit" value="Check CELP" onclick="checkCELP(tax_code.value);"/>
+        </form>
+     
+    </div></td>
+   <td class="content" valign="top">
+    <div align="left"> <label></label>
+        <form id="searchp" name="searchp" method="post" action="index.php?nav1=phone&nav2=search" >
+            <label>Phone number</label>
+            <input type="text" name="phoneno" value="" />
+            <input type="submit" name="Submit2" value="Search" />
+        </form>
+    </div>
+   </td>
+ </tr>
+ 
+ <tr><td colspan="2" valign="top" class="content">
+   <form id="nationalForm" name="nationalForm" method="post" action="index.php?popup=yes" target="_blank">		  
+         <input type="hidden" name="nav1" value="check_national_id" />
+       <label>National Id: </label><input type="text" name="national_code" />
+        <input type="submit" name="Submit" value="Check blacklist/blocklist" />
+        </form>
+ </td>
+ </tr>
+ 
+ <tr>
+   <td colspan="2" valign="top" class="content">
+    <form id="form1" name="form1" method="post" action="index.php?nav1=search" onsubmit="return check();">
+      <label>
+        Search: 
+        <input name="keyword" type="text" id="keyword" value="" />
+      </label>
+      <label>
+        <select name="field" id="field">
+         <option value="">Select</option>
+         <option value="NAME">NAME</option>
+         <option value="TAX">TAX CODE</option>
+        </select>
+      </label>
+      <label>
+        <input type="submit" name="Submit3" value="Search" />
+      </label>
+    </form>
+  </td>
+ </tr>
+-->
+ <tr>
+    <td colspan="2" valign="top" class="content">
+        <style type="text/css">
+<!--
+.style1 {color: #FFFFFF}
+.number {
+color:#800000;
+font-weight:bold;
+}
+-->
+</style>
+<br/>
+<form name="calculator" id="calculator" onsubmit="Calculator(); return false;">
+<table width="100%" border="0" cellspacing="2" cellpadding="2">
+<tr>
+<th colspan="2" scope="col">PL CALCULATOR </th>
+<th width="185" scope="col">&nbsp;</th>
+<th width="491" rowspan="17" valign="top" scope="col"><table width="100%" border="1" cellpadding="2" cellspacing="2" bgcolor="#E9E9E9">
+  <tr>
+    <th colspan="2" bgcolor="#0066b3" scope="col"><span class="style1">RESULT BASE ON SALARY </span></th>
+    </tr>
+  
+  <tr>
+    <td width="57%"><div align="left"><strong>GMI</strong></div></td>
+    <td width="43%"><div align="left">
+      <input name="GMI" type="text" id="GMI" readonly="true" class="number"/>
+    </div></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>Effective rate table (Yearly)</strong></div></td>
+    <td><div align="left">
+      <input name="rate_yearly" type="text" id="rate_yearly" size="5" readonly="true" class="number"/>
+%        </div></td>
+  </tr>
+
+  <tr>
+    <td><div align="left"><strong>Effective rate table (Monthly) </strong></div></td>
+    <td><div align="left">
+      <input name="rate_monthly" type="text" id="rate_monthly" size="5" readonly="true" class="number" />
+      % </div></td>
+  </tr>
+        
+<!--				
+  <tr>
+    <td><div align="left"><strong>Corresponding Flat Rate</strong></div></td>
+    <td><div align="left">
+      <input name="flat_rate" type="text" id="flat_rate" size="5" readonly="true" class="number"/>
+      % </div></td>
+  </tr>
+-->	  
+    <input name="flat_rate" type="hidden" id="flat_rate" size="5" readonly="true" class="number"/>
+  <tr>
+    <td><div align="left"><strong>EMI</strong></div></td>
+    <td><div align="left">
+      <input name="EMI" type="text" id="EMI" readonly="true" class="number"/>
+    </div></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>MUE</strong></div></td>
+    <td><div align="left">
+      <input name="MUE" type="text" id="MUE" readonly="true" class="number"/>
+    </div></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>DBR</strong></div></td>
+    <td><div align="left">
+      <input name="DBR" type="text" class="number" id="DBR" size="5" readonly="true"/>
+%        </div></td>
+  </tr>
+  <tr>
+    <td><div align="left"><strong>PTI</strong></div></td>
+    <td><div align="left">
+      <input name="PTI" type="text" class="number" id="PTI" size="5" readonly="true"/>
+%        </div></td>
+  </tr>
+</table>
+  <br />
+  <table width="100%" border="1" cellpadding="2" cellspacing="2" bgcolor="#E9E9E9">
+    <tr>
+      <th colspan="2" bgcolor="#0066b3" scope="col"><span class="style1">RESULT BASE ON PREMIUM </span></th>
+    </tr>
+    <tr>
+      <td width="57%"><div align="left"><strong>GMI (Premium) </strong></div></td>
+      <td width="43%"><div align="left">
+          <input name="GMI_Premium" type="text" id="GMI_Premium" readonly="true" class="number" />
+      </div></td>
+    </tr>
+    
+    <tr>
+      <td><div align="left"><strong>Effective rate table (Yearly)</strong></div></td>
+      <td><div align="left">
+          <input name="rate_yearly2" type="text" id="rate_yearly2" size="5" readonly="true" class="number"/>
+        % </div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><strong>Effective rate table (Monthly) </strong></div></td>
+      <td><div align="left">
+          <input name="rate_monthly2" type="text" id="rate_monthly2" size="5" readonly="true" class="number" />
+        % </div></td>
+    </tr>
+<!--
+    <tr>
+      <td><div align="left"><strong>Corresponding Flat Rate</strong></div></td>
+      <td><div align="left">
+          <input name="flat_rate2" type="text" id="flat_rate2" size="5" readonly="true" class="number"/>
+        % </div></td>
+    </tr>
+-->		
+    <input name="flat_rate2" type="hidden" id="flat_rate2" size="5" readonly="true" class="number"/>
+    <tr>
+      <td><div align="left"><strong>EMI</strong></div></td>
+      <td><div align="left">
+          <input name="EMI2" type="text" id="EMI2" readonly="true" class="number"/>
+      </div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><strong>MUE</strong></div></td>
+      <td><div align="left">
+          <input name="MUE2" type="text" id="MUE2" readonly="true" class="number"/>
+      </div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><strong>DBR</strong></div></td>
+      <td><div align="left">
+          <input name="DBR2" type="text" class="number" id="DBR2" size="5" readonly="true"/>
+%          </div></td>
+    </tr>
+    <tr>
+      <td><div align="left"><strong>PTI</strong></div></td>
+      <td><div align="left">
+          <input name="PTI2" type="text" class="number" id="PTI2" size="5" readonly="true"/>
+%          </div></td>
+    </tr>
+  </table></th>
+</tr>
+<tr>
+<td colspan="2">&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+   <tr>
+<td><strong>Location</strong></td>
+<td>
+<div id="location_div" name="location_div">
+<select name="location" id="location">
+  <option value=""></option>	  
+  <option value="HCM">HCM</option>
+  <option value="HN">HN</option>
+  <option value="DN">DA NANG</option>
+  <option value="SIP">SIP</option>
+  <option value="HCM40">HCM40</option>
+  <option value="HN40">HN40</option>
+</select>
+</div>	</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td width="270"><strong>Insurance Policy</strong></td>
+<td width="259"><select name="insurance_policy" id="insurance_policy" onchange="showInsuranceCompanyList(this);">
+ <option value=""></option>
+  <option value="yes">Yes</option>
+  <option value="no">No</option>
+</select>    </td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Insurance Company</strong></td>
+<td>
+<div id="co_list" style="display:none">
+<select name="insurance_company" id="insurance_company">
+  <option value=""></option>	  
+  <option value="ACE">ACE Life</option>
+  <option value="AIG">AIG</option>
+  <option value="BV">Bao Viet</option>
+  <option value="Daichi">Daichi Life</option>
+  <option value="Liberty">Liberty Life</option>
+  <option value="Manulife">Manulife</option>	  	  	  	  
+  <option value="Korean">Korean Life</option>	  	  	  	  
+  <option value="Cathay">Cathay Life</option>	  	  	  	  
+  <option value="GEL">Great Eastern Life</option>	  	  	  	  	  	  	  	  
+  <option value="Prudential">Prudential</option>
+    <option value="PHUHUNG">Phu Hung Life</option>
+    <option value="FUBON">Fubon Life</option>
+    <option value="VIETIN">Vietin Aviva Life</option>
+    <option value="PVI">PVI Sun Life</option>
+    <option value="VCLI">VCLI</option>
+    <option value="Generali">Generali</option>	  
+    <option value="Prevoir">Prévoir</option>	  		
+</select>
+</div>	</td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Credit Card</strong></td>
+<td><div id="cc_list" style="display:none">
+<select name="credit_card" id="credit_card">
+  <option value=""></option>
+  <option value="yes">Yes</option>
+  <option value="no">No</option>
+</select>
+<select name="bank" id="bank">
+  <option value=""></option>
+  <option value="local">Local bank</option>
+  <option value="mnc">MNC bank</option>
+</select>
+
+</div></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Company Group</strong></td>
+<td><select name="company_group" id="company_group">
+  <option value=""></option>
+  <option value="Non-Preselected">Non-Preselected</option>
+  <option value="Non-Preselected-KT3">Non-Preselected(Non KT3)</option>
+  <option value="Preselected">Preselected</option>
+  <option value="Preselected-KT3">Preselected(Non KT3)</option>
+  <option value="TOPPS">Top PS</option>
+  <option value="MELP">MELP</option>
+  <option value="SELF-LICENSE">SELF EMPLOYED(BUSINESS LICENSE)</option>
+  <option value="SELF-NON-LICENSE">SELF EMPLOYED(NON BUSINESS LICENSE)</option>
+</select></td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><strong>Salary Receive By</strong></td>
+<td><select name="salary_receive" id="salary_receive">
+  <option value=""></option>
+  <option value="Bank-Statement">Bank Statement</option>
+  <option value="Cash">Cash</option>
+</select></td>
+<td>&nbsp;</td>
+</tr>
+
+<tr>
+<td><strong>Fixed Monthly Income (VND)</strong></td>
+<td><input name="fixed_monthly_income" type="text" id="fixed_monthly_income" onkeypress="return ValidateNumberKeyPress(this, event);" onkeyup="ValidateNumberKeyUp(this);" onblur="ValidateAndFormatNumber(this)"/></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Variable Monthly Income (VND)</strong></td>
+<td><input name="variable_monthly_income" type="text" id="variable_monthly_income" onkeypress="return ValidateNumberKeyPress(this, event);" onkeyup="ValidateNumberKeyUp(this);" onblur="ValidateAndFormatNumber(this)"/></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Other Income</strong></td>
+<td><input name="other_income" type="text" id="other_income" onkeypress="return ValidateNumberKeyPress(this, event);" onkeyup="ValidateNumberKeyUp(this);" onblur="ValidateAndFormatNumber(this)"/></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Loan Amount</strong></td>
+<td><input name="loan_amount" type="text" id="loan_amount" onkeypress="return ValidateNumberKeyPress(this, event);" onkeyup="ValidateNumberKeyUp(this);" onblur="ValidateAndFormatNumber(this)"/></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Tenure Months</strong></td>
+<td><input name="Tenure_months" type="text" id="Tenure_months" /></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Total Monthly Obligations</strong></td>
+<td><input name="total_monthly_obligations" type="text" id="total_monthly_obligations" onkeypress="return ValidateNumberKeyPress(this, event);" onkeyup="ValidateNumberKeyUp(this);" onblur="ValidateAndFormatNumber(this)"/></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td><strong>Annual Premium (AP) </strong></td>
+<td><input name="ap" type="text" id="ap"  onkeypress="return ValidateNumberKeyPress(this, event);" onkeyup="ValidateNumberKeyUp(this);" onblur="ValidateAndFormatNumber(this)"/></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+<td><input type="submit" name="Submit" value="Calculate" />
+  <input type="reset" name="Submit2" value="Reset" /></td>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td colspan="3" valign="top"><div align="center"></div></td>
+</tr>
+</table>
+</form>
+    </td>
+</tr>
+</table>
+
+</div>
+<div>
+<div align="center" style="margin-top:50px;font-weight:bold;color:#333333"> &copy; Shinhan. All rights reserved. <br /><br />
+</div>
+</div>
+</div>
+<br />
+
+</body></html>
